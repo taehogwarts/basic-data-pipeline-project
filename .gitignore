@@ -129,6 +129,9 @@ dmypy.json
 .pyre/
 
 ### -----------------
+# Mac files
+.DS_Store
+
 # Dataset files
 dataset/
 .csv
