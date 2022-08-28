@@ -1,4 +1,6 @@
 import os
+import pickle
+
 from flask import Flask
 
 DB_FILENAME = 'nhis_treatment_records_2021.db'
