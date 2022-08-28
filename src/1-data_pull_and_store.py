@@ -166,12 +166,12 @@ table_name_2 = 'Disease'
 table_name_3 = 'Area'
 table_name_4 = 'Clinic'
 
-# cursor.execute(
-#     f"""DROP TABLE IF EXISTS {
-#         table_name_1
-#         }
-#     ;"""
-# )
+cursor.execute(
+    f"""DROP TABLE IF EXISTS {
+        table_name_1
+        }
+    ;"""
+)
 cursor.execute(
     f"""DROP TABLE IF EXISTS {
         table_name_2
@@ -191,24 +191,24 @@ cursor.execute(
     ;"""
 )
 
-# cursor.execute(
-#     f"""CREATE TABLE {
-#         table_name_1
-#         } (
-#             RecordID INTEGER NOT NULL PRIMARY KEY,
-#             {treatment_records_df.columns[0]} INTEGER, 
-#             {treatment_records_df.columns[1]} INTEGER, 
-#             {treatment_records_df.columns[2]} INTEGER, 
-#             {treatment_records_df.columns[3]} INTEGER, 
-#             {treatment_records_df.columns[4]} NVARCHAR,
-#             {treatment_records_df.columns[5]} INTEGER, 
-#             {treatment_records_df.columns[6]} INTEGER, 
-#             FOREIGN KEY (DiseaseCode) REFERENCES Disease(DiseaseCode), 
-#             FOREIGN KEY (AreaCode) REFERENCES Area(AreaCode), 
-#             FOREIGN KEY (ClinicCode) REFERENCES Clinic(ClinicCode)
-#         )
-#     ;"""
-# )
+cursor.execute(
+    f"""CREATE TABLE {
+        table_name_1
+        } (
+            RecordID INTEGER NOT NULL PRIMARY KEY,
+            {treatment_records_df.columns[0]} INTEGER, 
+            {treatment_records_df.columns[1]} INTEGER, 
+            {treatment_records_df.columns[2]} INTEGER, 
+            {treatment_records_df.columns[3]} INTEGER, 
+            {treatment_records_df.columns[4]} NVARCHAR,
+            {treatment_records_df.columns[5]} INTEGER, 
+            {treatment_records_df.columns[6]} INTEGER, 
+            FOREIGN KEY (DiseaseCode) REFERENCES Disease(DiseaseCode), 
+            FOREIGN KEY (AreaCode) REFERENCES Area(AreaCode), 
+            FOREIGN KEY (ClinicCode) REFERENCES Clinic(ClinicCode)
+        )
+    ;"""
+)
 # NVARCHAR - 일단 데이터 크기 지정 안 함
 
 cursor.execute(
@@ -248,34 +248,34 @@ connection.commit()
 
 #2-2. 데이터셋 테이블에 저장
 
-# treatment_records_columns_list = treatment_records_df.columns
-# for i in range(len(treatment_records_df)):
-#     row_list = list(
-#         treatment_records_df.iloc[i]
-#     )
-#     cursor.execute(
-#         f"""INSERT OR IGNORE INTO {
-#             table_name_1
-#         } (
-#             {treatment_records_columns_list[0]}, 
-#             {treatment_records_columns_list[1]}, 
-#             {treatment_records_columns_list[2]}, 
-#             {treatment_records_columns_list[3]}, 
-#             {treatment_records_columns_list[4]}, 
-#             {treatment_records_columns_list[5]}, 
-#             {treatment_records_columns_list[6]}
-#         ) VALUES (
-#             '{row_list[0]}', 
-#             '{row_list[1]}', 
-#             '{row_list[2]}', 
-#             '{row_list[3]}', 
-#             '{row_list[4]}', 
-#             '{row_list[5]}', 
-#             '{row_list[6]}'
-#         )
-#         ;"""
-#     )
-# connection.commit()
+treatment_records_columns_list = treatment_records_df.columns
+for i in range(len(treatment_records_df)):
+    row_list = list(
+        treatment_records_df.iloc[i]
+    )
+    cursor.execute(
+        f"""INSERT OR IGNORE INTO {
+            table_name_1
+        } (
+            {treatment_records_columns_list[0]}, 
+            {treatment_records_columns_list[1]}, 
+            {treatment_records_columns_list[2]}, 
+            {treatment_records_columns_list[3]}, 
+            {treatment_records_columns_list[4]}, 
+            {treatment_records_columns_list[5]}, 
+            {treatment_records_columns_list[6]}
+        ) VALUES (
+            '{row_list[0]}', 
+            '{row_list[1]}', 
+            '{row_list[2]}', 
+            '{row_list[3]}', 
+            '{row_list[4]}', 
+            '{row_list[5]}', 
+            '{row_list[6]}'
+        )
+        ;"""
+    )
+connection.commit()
 
 disease_columns_list = disease_df.columns
 for i in range(len(disease_df)):
