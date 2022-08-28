@@ -152,7 +152,8 @@ baseline_score = r2_score(y_test, y_pred)
 print(f'R2 Score of the Baseline(Mean) Model: {baseline_score}')
 
 print("Elapsed Time of STAGE 4-0. Model Training & Test 0 - Baseline(Mean):", time.process_time())
-### 결과 - R2 Score of the Baseline(Mean) Model: -3.808433191032634e-08
+### 결과 - R2 Score of the Baseline(Mean) Model: -9.475580571294273e-07
+
 
 
 #3-1. 머신러닝 모델링 1) RandomForestRegressor
@@ -177,7 +178,7 @@ randomforest_score = r2_score(y_test, y_pred)
 print(f'R2 Score of the Random Forest Model: {randomforest_score}')
 
 print("Elapsed Time of STAGE 4-1. Model Training & Test 1 - RandomForestRegressor:", time.process_time())
-### 결과 - R2 Score of the Random Forest Model: -0.016797267689489637
+### 결과 - R2 Score of the Random Forest Model: -0.016814787977453616
 
 
 
@@ -207,14 +208,14 @@ xgboost_score = r2_score(y_test, y_pred)
 print(f'R2 Score of the Gradient Boosting Model(XGBoost): {xgboost_score}')
 
 print("Elapsed Time of STAGE 4-2. Model Training & Test 2 - XGBRegressor:", time.process_time())
-### 결과 - R2 Score of the Gradient Boosting Model(XGBoost): -0.016588369312068085
+### 결과 - R2 Score of the Gradient Boosting Model(XGBoost): -0.016571297889370173
 
 
 
 
 
 #3-3. 머신러닝 모델링 3) 선형회귀 모델
-### 트리 모델의 성능이 너무 떨어지므로 선형회귀 모델 사용
+### 트리 모델의 성능이 너무 떨어지므로 선형회귀 모델 사용 (데이터 비선형일 가능성 크므로 사실 안 하는 게 나음)
 ### 순서형 인코딩 된 특성을 TargetEncoding 후 다중선형회귀 모델링
 
 from category_encoders import TargetEncoder
@@ -248,7 +249,7 @@ linearregression_score = r2_score(y_test, y_pred)
 print(f'R2 Score of the Multiple Linear Regression Model: {linearregression_score}')
 
 print("Elapsed Time of STAGE 4-3. Model Training & Test 3 - LinearRegression:", time.process_time())
-### 결과 - R2 Score of the Multiple Linear Regression Model: -0.019581409822884366
+### 결과 - R2 Score of the Multiple Linear Regression Model: -0.019662836521741944
 
 
 
@@ -270,7 +271,7 @@ ridgeregression_score = r2_score(y_test, y_pred)
 print(f'R2 Score of the Ridge Regression Model: {ridgeregression_score}')
 
 print("Elapsed Time of STAGE 4-4. Model Training & Test 4 - Ridge:", time.process_time())
-### 결과 - R2 Score of the Ridge Regression Model: -0.019581409820615736
+### 결과 - R2 Score of the Ridge Regression Model: -0.01966283651923928
 
 
 
@@ -285,10 +286,18 @@ if max(score_list) == randomforest_score or max(score_list) == xgboost_score:
     y_whole = df[target]
 
     if randomforest_score >= xgboost_score:
-        best_model = model_1
+        best_model = RandomForestRegressor(
+            n_estimators=300, 
+            max_depth=10,  
+            n_jobs=-1
+            )
         print("Best Model: Random Forest")
     else:
-        best_model = model_2
+        best_model = XGBRegressor(
+            n_estimators=200, 
+            learning_rate=0.2, 
+            n_jobs=-1
+            )
         print("Best Model: Gradient Boosting(XGBoost)")
 
 if max(score_list) == linearregression_score or max(score_list) == ridgeregression_score:
@@ -296,10 +305,10 @@ if max(score_list) == linearregression_score or max(score_list) == ridgeregressi
     y_whole = pd.concat([y_train, y_test])
 
     if linearregression_score >= ridgeregression_score:
-        best_model = model_3
+        best_model = LinearRegression()
         print("Best Model: Linear Regression")
     else:
-        best_model = model_4
+        best_model = Ridge(alpha=0.1)
         print("Best Model: Ridge Regression")
     
 

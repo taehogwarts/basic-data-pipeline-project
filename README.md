@@ -45,11 +45,8 @@
 - 테스트 모델: Random Forest, Gradient Boosting(XGBoost), Linear Regression, Ridge Regression
 - 특이사항: 로그변환 - sklearn TransformedTargetRegressor 활용
 - 최종 선택 모델: XGBoost (* 최종 모델 학습은 전체 데이터셋 사용)
-- 소스 코드: 2-predictive_modeling.py
+- 소스 코드(모델별 성능값 포함): 2-predictive_modeling.py
 - 모델 인코딩 : model.pkl
-
-
-
 
 ### STAGE 5. Web API Building
 
