@@ -133,10 +133,7 @@ dmypy.json
 .DS_Store
 
 # Dataset files
-.csv
-.db
+/.csv
+/.db
 dataset/
 database/
-
-# Pickle files
-.pkl

@@ -28,6 +28,7 @@
 - 소스 코드: 1-data_pull_and_store.py
 
 ### STAGE 2. Data-Storing
+- 사용 DB: RDB - SQLite
 - 생성 DB 파일 크기: 약 300MB
 - 소스 코드: 1-data_pull_and_store.py
 
@@ -46,12 +47,14 @@
 - 특이사항: 로그변환 - sklearn TransformedTargetRegressor 활용
 - 최종 선택 모델: XGBoost (* 최종 모델 학습은 전체 데이터셋 사용)
 - 소스 코드(모델별 성능값 포함): 2-predictive_modeling.py
-- 모델 인코딩 : model.pkl
+- 모델 인코딩 파일: model.pkl
 
 ### STAGE 5. Web API Building
+- 사용 라이브러리: flask
 - API endpoint: /api/user
 - Keys: GenderCode, AgeCode, AreaCode, ClinicCode
 - Values: 메인 페이지에서 안내
+- 소스 코드: flask_web_api
 
 ### STAGE 6. Dashboard Building
 
