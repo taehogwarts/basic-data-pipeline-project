@@ -59,10 +59,10 @@
 
 ### STAGE 6. Dashboard Building
 - 사용하고자 했던 툴: Google Data Studio (M1 Mac - Metabase 사용 불가)
-- 특이사항 1: SQLite DB 미지원 -> DB의 모든 테이블을 INNER JOIN 후 CSV 파일로 출력하여 사용 -> 읽지 못해서 실패
-- 특이사항 2: Amazon RDS, ElephantSQL(유료) 등에 PostgreSQL로 적재하여 사용하려 했으나 실패
-- 동적으로 작동하는 대시보드 구현은 실패 -> 부족한 대로 Pandas, Matplotlib, Seaborn 등 파이썬 라이브러리로 시각화
+- 특이사항 1: SQLite DB 미지원 -> DB의 모든 테이블을 INNER JOIN 후 CSV 파일로 출력하여 사용 -> 읽지 못해서 실패 (*소스 코드: 3-data_query_csv.py)
+- 특이사항 2: Amazon RDS, ElephantSQL(유료) 등에 PostgreSQL로 적재하여 사용하려 했으나 적재 시간이 너무 길어져서 실패 (*소스 코드: 3-data_store_postgresql.py)
+- 동적으로 작동하는 대시보드 구현은 실패 -> 부족한 대로 Pandas, Matplotlib, Seaborn 등 파이썬 라이브러리로 시각화 (#소스 코드: 3-data_pull_visualization.py)
 
 ### STAGE 7. Web API Deploying
-
-
+- 배포 플랫폼: Heroku
+- 주소: https://basic-datapipeline.herokuapp.com
