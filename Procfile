@@ -1,0 +1,1 @@
+web: gunicorn --workers=2 'flask_web_api:app'
