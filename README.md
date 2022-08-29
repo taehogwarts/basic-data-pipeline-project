@@ -49,8 +49,9 @@
 - 모델 인코딩 : model.pkl
 
 ### STAGE 5. Web API Building
-
-
+- API endpoint: /api/user
+- Keys: Gender, Age, ClinicCode
+- Values: 메인 페이지에서 안내
 
 ### STAGE 6. Dashboard Building
 

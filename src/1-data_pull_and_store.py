@@ -32,7 +32,7 @@ df3 = pd.read_csv(CSV_FILEPATH_3, encoding='cp949')
 df3 = df3[treatment_records_columns_list]
 
 treatment_records_df = pd.concat([df1, df2, df3])
-treatment_records_df.columns = ['Gender', 'Age', 'AreaCode', 'ClinicCode', 'DiseaseCode', 
+treatment_records_df.columns = ['GenderCode', 'AgeCode', 'AreaCode', 'ClinicCode', 'DiseaseCode', 
                 'TreatmentPeriod_Days', 'MedicalExpenses_Won']
 
 # treatment_records_df.to_csv('df.csv') ## --> csv 파일 용량이 대략 350mb 정도 나옴

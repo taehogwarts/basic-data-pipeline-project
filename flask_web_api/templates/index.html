@@ -23,10 +23,253 @@
           <p class="lead text-muted">
           머신러닝 모델로 1년간의 의료비 본인부담금액을 예측할 수 있습니다.
           <br>
-          아래 가이드라인에 따라 성별, 나이, 진료과목을 Web API로 입력해 주세요.
+          아래 API 가이드라인에 따라 정보를 요청해 주세요.
           </p>
         </div>
       </div>
-    </section>
+        <p class="font-weight-bold">
+            Method: GET <br>
+            <br>
+            Endpoint: /api/user <br>
+            <br>
+            입력값: 성별코드, 연령, 진료과목코드 <br>
+            <br>
+            *아래 표에 따라 1.성별코드, 2.연령, 3.치료를 요하는 질병의 진료과에 해당하는 진료과목코드를
+            <br>
+            Key:Value 형식으로 입력하시면 모델 예측 본인부담금액을 확인하실 수 있습니다.
+        </p>
+      </section>
+    <section class="py-5 text-center container">
+        <p class="lead font-weight-bold">
+            입력 Key 1: 'Gender'
+            <br>
+            *아래 표에 따라 성별코드를 입력해 주세요.
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">성별코드(value)</th>
+              <th scope="col">성별</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>남자</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>여자</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="py-5 text-center container">
+        <p class="lead font-weight-bold">
+            입력 Key 2: 'Age'
+            <br>
+            -Value: 연령 (*단위를 제외한 숫자만 입력해 주세요.)
+        </p>
+      </section>
+      <section class="py-5 text-center container">
+        <p class="lead font-weight-bold">
+            입력 Key 3: 'ClinicCode'
+            <br>
+            *아래 표에 따라 를 입력해 주세요.
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">진료과목코드(Value)</th>
+              <th scope="col">진료과목</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">{{ clinic_list[0]['Key'] }}</th>
+              <td>{{ clinic_list[0]['Value'] }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ clinic_list[1]['Key'] }}</th>
+                <td>{{ clinic_list[1]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[2]['Key'] }}</th>
+                <td>{{ clinic_list[2]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[3]['Key'] }}</th>
+                <td>{{ clinic_list[3]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[4]['Key'] }}</th>
+                <td>{{ clinic_list[4]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[5]['Key'] }}</th>
+                <td>{{ clinic_list[5]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[6]['Key'] }}</th>
+                <td>{{ clinic_list[6]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[7]['Key'] }}</th>
+                <td>{{ clinic_list[7]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[8]['Key'] }}</th>
+                <td>{{ clinic_list[8]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[9]['Key'] }}</th>
+                <td>{{ clinic_list[9]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[10]['Key'] }}</th>
+                <td>{{ clinic_list[10]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[11]['Key'] }}</th>
+                <td>{{ clinic_list[11]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[12]['Key'] }}</th>
+                <td>{{ clinic_list[12]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[13]['Key'] }}</th>
+                <td>{{ clinic_list[13]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[14]['Key'] }}</th>
+                <td>{{ clinic_list[14]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[15]['Key'] }}</th>
+                <td>{{ clinic_list[15]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[16]['Key'] }}</th>
+                <td>{{ clinic_list[16]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[17]['Key'] }}</th>
+                <td>{{ clinic_list[17]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[18]['Key'] }}</th>
+                <td>{{ clinic_list[18]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[19]['Key'] }}</th>
+                <td>{{ clinic_list[19]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[20]['Key'] }}</th>
+                <td>{{ clinic_list[20]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[21]['Key'] }}</th>
+                <td>{{ clinic_list[21]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[22]['Key'] }}</th>
+                <td>{{ clinic_list[22]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[23]['Key'] }}</th>
+                <td>{{ clinic_list[23]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[24]['Key'] }}</th>
+                <td>{{ clinic_list[24]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[25]['Key'] }}</th>
+                <td>{{ clinic_list[25]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[26]['Key'] }}</th>
+                <td>{{ clinic_list[26]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[27]['Key'] }}</th>
+                <td>{{ clinic_list[27]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[28]['Key'] }}</th>
+                <td>{{ clinic_list[28]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[29]['Key'] }}</th>
+                <td>{{ clinic_list[29]['Value'] }}</td>
+              </tr>                      
+              <tr>
+                <th scope="row">{{ clinic_list[30]['Key'] }}</th>
+                <td>{{ clinic_list[30]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[31]['Key'] }}</th>
+                <td>{{ clinic_list[31]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[32]['Key'] }}</th>
+                <td>{{ clinic_list[32]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[33]['Key'] }}</th>
+                <td>{{ clinic_list[33]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[34]['Key'] }}</th>
+                <td>{{ clinic_list[34]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[35]['Key'] }}</th>
+                <td>{{ clinic_list[35]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[36]['Key'] }}</th>
+                <td>{{ clinic_list[36]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[37]['Key'] }}</th>
+                <td>{{ clinic_list[37]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[38]['Key'] }}</th>
+                <td>{{ clinic_list[38]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[39]['Key'] }}</th>
+                <td>{{ clinic_list[39]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[40]['Key'] }}</th>
+                <td>{{ clinic_list[40]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[41]['Key'] }}</th>
+                <td>{{ clinic_list[41]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[42]['Key'] }}</th>
+                <td>{{ clinic_list[42]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[43]['Key'] }}</th>
+                <td>{{ clinic_list[43]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[44]['Key'] }}</th>
+                <td>{{ clinic_list[44]['Value'] }}</td>
+              </tr>
+              <tr>
+                <th scope="row">{{ clinic_list[45]['Key'] }}</th>
+                <td>{{ clinic_list[45]['Value'] }}</td>
+              </tr>
+          </tbody>
+        </table>
   </body>
 </html>

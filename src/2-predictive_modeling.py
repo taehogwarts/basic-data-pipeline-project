@@ -27,7 +27,7 @@ connection = sqlite3.connect(DB_FILEPATH)
 cursor = connection.cursor()
 
 columns_list = [
-    'Gender', 'Age', 'ClinicCode', 'MedicalExpenses_Won'
+    'GenderCode', 'AgeCode', 'ClinicCode', 'MedicalExpenses_Won'
 ]
 cursor.execute(
     f"""
@@ -138,7 +138,6 @@ print("Elapsed Time of STAGE 3-2. Data Preprocessing & Dataset-Split:", time.pro
 
 #3. 머신러닝 모델링
 
-### 변수 표준화 불필요 (수치형 변수 - Age 1개이므로)
 ### 변수 인코딩 불필요 (범주형 변수 - 모두 순서형 인코딩 된 상태)
 
 ### 범주형 변수가 Ordinal-Encoding 되어 있는 상태이므로 선형회귀 모델 사용은 적절하지 않음

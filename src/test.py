@@ -1,14 +1,4 @@
-from flask import Blueprint, render_template
-
-
-main_bp = Blueprint('main', __name__)
-
-
-@main_bp.route('/')
-def index():
-
-    ### DB의 ClinicCode 테이블에서 불러오는 게 이상적이지만 배포 시 용량제한으로 DB 파일 업로드가 어려울 것을 감안하여 하드코딩
-    clinic_dict_list = [
+clinic_code_dict = [
         {'Key': 0, 'Value': '일반의'},
         {'Key': 1, 'Value': '내과'}, 
         {'Key': 2, 'Value': '신경과'}, 
@@ -57,4 +47,4 @@ def index():
         {'Key': 88, 'Value': '한방응급의학과'}, 
     ]
 
-    return render_template('index.html', clinic_list=clinic_dict_list)
+print(len(clinic_code_dict))
