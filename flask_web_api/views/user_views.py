@@ -13,12 +13,13 @@ def get_prediction():
     with open(PKL_FILEPATH,'rb') as pickle_file:
         model = pickle.load(pickle_file)
 
-    user_gender = request.args.get('Gender', default=None, type=int)
-    user_age = request.args.get('Age', default=None, type=int)
+    user_gender = request.args.get('GenderCode', default=None, type=int)
+    user_age = request.args.get('AgeCode', default=None, type=int)
+    user_area = request.args.get('AreaCode', default=None, type=int)
     user_clinic = request.args.get('ClinicCode', default=None, type=int)
 
-    user_data = [[user_gender, user_age, user_clinic]]
-    columns_list = ['Gender', 'Age', 'ClinicCode']
+    user_data = [[user_gender, user_age, user_area, user_clinic]]
+    columns_list = ['GenderCode', 'AgeCode', 'AreaCode', 'ClinicCode']
 
     X_test = pd.DataFrame(data=user_data, columns=columns_list)
     y_pred = model.predict(X_test)
@@ -26,7 +27,8 @@ def get_prediction():
     pred_data = {
         '유저 입력값': {
             '성별코드': user_gender, 
-            '연령': user_age, 
+            '연령대코드': user_age, 
+            '진료지역코드': user_area, 
             '진료과목코드': user_clinic
         },
         '모델 예측값': {

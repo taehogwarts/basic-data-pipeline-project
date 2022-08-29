@@ -27,11 +27,11 @@ connection = sqlite3.connect(DB_FILEPATH)
 cursor = connection.cursor()
 
 columns_list = [
-    'GenderCode', 'AgeCode', 'ClinicCode', 'MedicalExpenses_Won'
+    'GenderCode', 'AgeCode', 'AreaCode', 'ClinicCode', 'MedicalExpenses_Won'
 ]
 cursor.execute(
     f"""
-    SELECT {columns_list[0]}, {columns_list[1]}, {columns_list[2]}, {columns_list[3]}
+    SELECT {columns_list[0]}, {columns_list[1]}, {columns_list[2]}, {columns_list[3]}, {columns_list[4]}
     FROM {table_name}
     ;"""
 )
@@ -138,9 +138,9 @@ print("Elapsed Time of STAGE 3-2. Data Preprocessing & Dataset-Split:", time.pro
 
 #3. 머신러닝 모델링
 
-### 변수 인코딩 불필요 (범주형 변수 - 모두 순서형 인코딩 된 상태)
+### 특성 인코딩 불필요 (모두 범주형 변수인데 - 데이터셋에서 모두 이미 순서형 인코딩 된 상태)
 
-### 범주형 변수가 Ordinal-Encoding 되어 있는 상태이므로 선형회귀 모델 사용은 적절하지 않음
+### 데이터 비선형 상태이므로 선형회귀 모델 사용은 적절하지 않음
 ### 트리모델이면서 앙상블 방법인 랜덤포레스트(배깅) 또는 부스팅 모델 사용이 적절
 
 #3-0. 기준모델: 평균모델
@@ -151,7 +151,7 @@ baseline_score = r2_score(y_test, y_pred)
 print(f'R2 Score of the Baseline(Mean) Model: {baseline_score}')
 
 print("Elapsed Time of STAGE 4-0. Model Training & Test 0 - Baseline(Mean):", time.process_time())
-### 결과 - R2 Score of the Baseline(Mean) Model: -9.475580571294273e-07
+### 결과 - R2 Score of the Baseline(Mean) Model: -2.9956906466566124e-07
 
 
 
@@ -177,7 +177,7 @@ randomforest_score = r2_score(y_test, y_pred)
 print(f'R2 Score of the Random Forest Model: {randomforest_score}')
 
 print("Elapsed Time of STAGE 4-1. Model Training & Test 1 - RandomForestRegressor:", time.process_time())
-### 결과 - R2 Score of the Random Forest Model: -0.016814787977453616
+### 결과 - R2 Score of the Random Forest Model: -0.016489235623298848
 
 
 
@@ -185,7 +185,7 @@ print("Elapsed Time of STAGE 4-1. Model Training & Test 1 - RandomForestRegresso
 ### 데이터셋 크기가 매우 크므로 하이퍼파라미터 튜닝까지 하기엔 시간이 부족
 ### XGBoost는 하이퍼파라미터 세팅에 민감하므로 안 하는 게 나을 수도 있음
 
-## 위의 랜덤포레스트 모델링 결과 - 과적합(R2값 음수) 상태이므로 부스팅 불필요 판단 - 모델링 생략
+## 위의 랜덤포레스트 모델링 결과 - 과적합(R2값 음수) 상태이므로 부스팅 불필요 판단했지만... 그래도 해봄
 
 from xgboost import XGBRegressor
 
@@ -207,109 +207,23 @@ xgboost_score = r2_score(y_test, y_pred)
 print(f'R2 Score of the Gradient Boosting Model(XGBoost): {xgboost_score}')
 
 print("Elapsed Time of STAGE 4-2. Model Training & Test 2 - XGBRegressor:", time.process_time())
-### 결과 - R2 Score of the Gradient Boosting Model(XGBoost): -0.016571297889370173
+### 결과 - R2 Score of the Gradient Boosting Model(XGBoost): -0.015027890476425387
 
 
 
 
-
-#3-3. 머신러닝 모델링 3) 선형회귀 모델
-### 트리 모델의 성능이 너무 떨어지므로 선형회귀 모델 사용 (데이터 비선형일 가능성 크므로 사실 안 하는 게 나음)
-### 순서형 인코딩 된 특성을 TargetEncoding 후 다중선형회귀 모델링
-
-from category_encoders import TargetEncoder
-
-X_train.ClinicCode = X_train.ClinicCode.astype('str')
-print(X_train.info())
-X_test.ClinicCode = X_test.ClinicCode.astype('str')
-print(X_test.info())
-
-encoder = TargetEncoder(smoothing=0.5)
-X_train_encoded = encoder.fit_transform(X_train, y_train)
-X_test_encoded = encoder.transform(X_test)
-
-
-
-## 3-1) 일반 선형회귀 모델
-
-from sklearn.linear_model import LinearRegression
-
-model_3 = LinearRegression()
-
-ttr_3 = TransformedTargetRegressor(
-    regressor=model_3, 
-    func=np.log1p, 
-    inverse_func=np.expm1
-)
-
-ttr_3.fit(X_train_encoded, y_train)
-y_pred = ttr_3.predict(X_test_encoded)
-linearregression_score = r2_score(y_test, y_pred)
-print(f'R2 Score of the Multiple Linear Regression Model: {linearregression_score}')
-
-print("Elapsed Time of STAGE 4-3. Model Training & Test 3 - LinearRegression:", time.process_time())
-### 결과 - R2 Score of the Multiple Linear Regression Model: -0.019662836521741944
-
-
-
-## 3-2) 릿지 선형회귀 모델
-
-from sklearn.linear_model import Ridge
-
-model_4 = Ridge(alpha=0.1)
-
-ttr_4 = TransformedTargetRegressor(
-    regressor=model_4, 
-    func=np.log1p, 
-    inverse_func=np.expm1
-)
-
-ttr_4.fit(X_train_encoded, y_train)
-y_pred = ttr_4.predict(X_test_encoded)
-ridgeregression_score = r2_score(y_test, y_pred)
-print(f'R2 Score of the Ridge Regression Model: {ridgeregression_score}')
-
-print("Elapsed Time of STAGE 4-4. Model Training & Test 4 - Ridge:", time.process_time())
-### 결과 - R2 Score of the Ridge Regression Model: -0.01966283651923928
-
-
-
-
-#3-4. 모델 선택 및 전체 데이터셋으로 최종 모델 학습
+#3-3. 모델 선택 및 전체 데이터셋으로 최종 모델 학습
 ### 시간관계상 SearchCV 메소드를 이용한 하이퍼파라미터 튜닝은 생략
 
-score_list = [randomforest_score, xgboost_score, linearregression_score, ridgeregression_score]
+X_whole = df[features]
+y_whole = df[target]
 
-if max(score_list) == randomforest_score or max(score_list) == xgboost_score:
-    X_whole = df[features]
-    y_whole = df[target]
-
-    if randomforest_score >= xgboost_score:
-        best_model = RandomForestRegressor(
-            n_estimators=300, 
-            max_depth=10,  
-            n_jobs=-1
-            )
-        print("Best Model: Random Forest")
-    else:
-        best_model = XGBRegressor(
-            n_estimators=200, 
-            learning_rate=0.2, 
-            n_jobs=-1
-            )
-        print("Best Model: Gradient Boosting(XGBoost)")
-
-if max(score_list) == linearregression_score or max(score_list) == ridgeregression_score:
-    X_whole = pd.concat([X_train_encoded, X_test_encoded])
-    y_whole = pd.concat([y_train, y_test])
-
-    if linearregression_score >= ridgeregression_score:
-        best_model = LinearRegression()
-        print("Best Model: Linear Regression")
-    else:
-        best_model = Ridge(alpha=0.1)
-        print("Best Model: Ridge Regression")
-    
+if randomforest_score >= xgboost_score:
+    best_model = model_1
+    print("Best Model: Random Forest")
+else:
+    best_model = model_2
+    print("Best Model: Gradient Boosting(XGBoost)")
 
 ttr_final = TransformedTargetRegressor(
     regressor=best_model, 
@@ -318,17 +232,14 @@ ttr_final = TransformedTargetRegressor(
 )
 ttr_final.fit(X_whole, y_whole)
 
-print("Elapsed Time of STAGE 4-5. Final Model Training:", time.process_time())
+print("Elapsed Time of STAGE 4-3. Final Model Training:", time.process_time())
 
 
 
 
-#3-5. 모델 pickling
+#3-4. 모델 pickling
 
 with open('model.pkl','wb') as pickle_file:
     pickle.dump(ttr_final, pickle_file)
 
-with open('encoder.pkl', 'wb') as pickle_file:
-    pickle.dump(encoder, pickle_file)
-
-print("Elapsed Time of STAGE 4-6. Model Encoding:", time.process_time())
+print("Elapsed Time of STAGE 4-4. Model Encoding:", time.process_time())

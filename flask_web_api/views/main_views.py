@@ -7,7 +7,49 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
 
-    ### DB의 ClinicCode 테이블에서 불러오는 게 이상적이지만 배포 시 용량제한으로 DB 파일 업로드가 어려울 것을 감안하여 하드코딩
+    ### DB의 테이블에서 불러오는 게 이상적이지만 배포 시 용량제한으로 DB 파일 업로드가 어려울 것을 감안하여 하드코딩
+
+    age_dict_list = [
+        {'Key': 1, 'Value': '0~4세'}, 
+        {'Key': 2, 'Value': '5~9세'}, 
+        {'Key': 3, 'Value': '10~14세'}, 
+        {'Key': 4, 'Value': '15~19세'}, 
+        {'Key': 5, 'Value': '20~24세'}, 
+        {'Key': 6, 'Value': '25~29세'}, 
+        {'Key': 7, 'Value': '30~34세'}, 
+        {'Key': 8, 'Value': '35~39세'}, 
+        {'Key': 9, 'Value': '40~44세'}, 
+        {'Key': 10, 'Value': '45~49세'}, 
+        {'Key': 11, 'Value': '50~54세'}, 
+        {'Key': 12, 'Value': '55~59세'}, 
+        {'Key': 13, 'Value': '60~64세'}, 
+        {'Key': 14, 'Value': '65~69세'}, 
+        {'Key': 15, 'Value': '70~74세'}, 
+        {'Key': 16, 'Value': '75~79세'}, 
+        {'Key': 17, 'Value': '80~84세'}, 
+        {'Key': 18, 'Value': '85세+'}
+    ]
+
+    area_dict_list = [
+        {'Key': 11, 'Value': '서울특별시'}, 
+        {'Key': 26, 'Value': '부산광역시'}, 
+        {'Key': 27, 'Value': '대구광역시'}, 
+        {'Key': 28, 'Value': '인천광역시'}, 
+        {'Key': 29, 'Value': '광주광역시'}, 
+        {'Key': 30, 'Value': '대전광역시'}, 
+        {'Key': 31, 'Value': '울산광역시'}, 
+        {'Key': 36, 'Value': '세종특별자치시'}, 
+        {'Key': 41, 'Value': '경기도'}, 
+        {'Key': 42, 'Value': '강원도'}, 
+        {'Key': 43, 'Value': '충청북도'}, 
+        {'Key': 44, 'Value': '충청남도'}, 
+        {'Key': 45, 'Value': '전라북도'}, 
+        {'Key': 46, 'Value': '전라남도'}, 
+        {'Key': 47, 'Value': '경상북도'}, 
+        {'Key': 48, 'Value': '경상남도'}, 
+        {'Key': 49, 'Value': '제주특별자치도'},     
+    ]
+
     clinic_dict_list = [
         {'Key': 0, 'Value': '일반의'},
         {'Key': 1, 'Value': '내과'}, 
@@ -57,4 +99,9 @@ def index():
         {'Key': 88, 'Value': '한방응급의학과'}, 
     ]
 
-    return render_template('index.html', clinic_list=clinic_dict_list)
+    return render_template(
+        'index.html', 
+        age_list=age_dict_list, 
+        area_list=area_dict_list, 
+        clinic_list=clinic_dict_list
+    )

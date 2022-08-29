@@ -35,8 +35,6 @@ treatment_records_df = pd.concat([df1, df2, df3])
 treatment_records_df.columns = ['GenderCode', 'AgeCode', 'AreaCode', 'ClinicCode', 'DiseaseCode', 
                 'TreatmentPeriod_Days', 'MedicalExpenses_Won']
 
-# treatment_records_df.to_csv('df.csv') ## --> csv 파일 용량이 대략 350mb 정도 나옴
-
 # print(treatment_records_df.info())
 # print(treatment_records_df.head())
 
@@ -143,6 +141,23 @@ clinic_df = pd.DataFrame(data=clinic_data_matrix, columns=clinic_columns_list)
 
 
 
+
+
+#1-5. 연령대코드 정보 dataframe 생성
+
+age_columns_list = ['AgeCode', 'AgeName']
+age_data_matrix = [
+    [1, '0~4세'], [2, '5~9세'], [3, '10~14세'], [4, '15~19세'], [5, '20~24세'], [6, '25~29세'], [7, '30~34세'],
+    [8, '35~39세'], [9, '40~44세'], [10, '45~49세'], [11, '50~54세'], [12, '55~59세'], [13, '60~64세'], [14, '65~69세'], 
+    [15, '70~74세'], [16, '75~79세'], [17, '80~84세'], [18, '85세+']
+]
+
+age_df = pd.DataFrame(data=age_data_matrix, columns=age_columns_list)
+
+# print(age_df.info())
+# print(age_df.head())
+
+
 print("Elapsed Time of STAGE 1. Data-Pull:", time.process_time())
 
 
@@ -165,6 +180,7 @@ table_name_1 = 'TreatmentRecords'
 table_name_2 = 'Disease'
 table_name_3 = 'Area'
 table_name_4 = 'Clinic'
+table_name_5 = 'Age'
 
 cursor.execute(
     f"""DROP TABLE IF EXISTS {
@@ -190,6 +206,12 @@ cursor.execute(
         }
     ;"""
 )
+cursor.execute(
+    f"""DROP TABLE IF EXISTS {
+        table_name_5
+        }
+    ;"""
+)
 
 cursor.execute(
     f"""CREATE TABLE {
@@ -206,6 +228,7 @@ cursor.execute(
             FOREIGN KEY (DiseaseCode) REFERENCES Disease(DiseaseCode), 
             FOREIGN KEY (AreaCode) REFERENCES Area(AreaCode), 
             FOREIGN KEY (ClinicCode) REFERENCES Clinic(ClinicCode)
+            FOREIGN KEY (AgeCode) REFERENCE Age(AgeCode)
         )
     ;"""
 )
@@ -242,7 +265,18 @@ cursor.execute(
     ;"""
 )
 
+cursor.execute(
+    f"""CREATE TABLE {
+        table_name_5
+        } (
+            {age_df.columns[0]} INTEGER PRIMARY KEY, 
+            {age_df.columns[1]} NVARCHAR
+        )
+    ;"""
+)
+
 connection.commit()
+
 
 
 
@@ -326,6 +360,24 @@ for i in range(len(clinic_df)):
         } (
             {clinic_columns_list[0]}, 
             {clinic_columns_list[1]}
+        ) VALUES (
+            '{row_list[0]}', 
+            '{row_list[1]}'
+        )
+        ;"""
+    )
+connection.commit()
+
+for i in range(len(age_df)):
+    row_list = list(
+        age_df.iloc[i]
+    )
+    cursor.execute(
+        f"""INSERT OR IGNORE INTO {
+            table_name_5
+        } (
+            {age_columns_list[0]}, 
+            {age_columns_list[1]}
         ) VALUES (
             '{row_list[0]}', 
             '{row_list[1]}'

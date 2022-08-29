@@ -38,11 +38,11 @@
 - 소스 코드: 2-predictive_modeling.py
 
 ### STAGE 4. Machine-Learning Modeling
-- 특성: 성별, 연령, 진료과목코드
+- 특성: 성별, 연령, 시도코드(지역코드), 진료과목코드
 - 타겟: 심결본인부담금
 - 머신러닝 모델: 지도학습 회귀 모델
 - 모델링 방법: 2-Way Holdout Method (TrainSet 0.75%, TestSet 0.25%)
-- 테스트 모델: Random Forest, Gradient Boosting(XGBoost), Linear Regression, Ridge Regression
+- 테스트 모델: Random Forest, Gradient Boosting(XGBoost)
 - 특이사항: 로그변환 - sklearn TransformedTargetRegressor 활용
 - 최종 선택 모델: XGBoost (* 최종 모델 학습은 전체 데이터셋 사용)
 - 소스 코드(모델별 성능값 포함): 2-predictive_modeling.py
@@ -50,7 +50,7 @@
 
 ### STAGE 5. Web API Building
 - API endpoint: /api/user
-- Keys: Gender, Age, ClinicCode
+- Keys: GenderCode, AgeCode, AreaCode, ClinicCode
 - Values: 메인 페이지에서 안내
 
 ### STAGE 6. Dashboard Building
