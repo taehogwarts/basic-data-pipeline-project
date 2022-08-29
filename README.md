@@ -14,12 +14,13 @@
 - 출처: https://www.data.go.kr/data/15007115/fileData.do
 
 ### 테이블2: 질병코드 정보
-- 데이터 개수: 약 45,000개
+- 원 데이터 개수: 약 45,000개
+- 한 질병코드가 여러 개의 병명을 가진 경우 최초 데이터만 사용 -> 사용 데이터 개수: 약 21,000개
 - 출처: https://www.data.go.kr/data/15067467/fileData.do
 
 <br>
 
-## 프로젝트 진행 과정
+## 프로젝트 진행 과정 및 결과
 - 사용 언어: Python 3.8
 - 데이터베이스 유형: SQLite
 - 사용 컴퓨터: MacBook Air (M1, 2020)
@@ -57,7 +58,10 @@
 - 소스 코드: flask_web_api
 
 ### STAGE 6. Dashboard Building
-
+- 사용 툴: Google Data Studio
+- 특이사항: SQLite DB 미지원 -> DB의 모든 테이블을 INNER JOIN 후 CSV 파일로 출력하여 사용
+- 소스 코드: 3-data_query_csv.py
+- 
 
 
 ### STAGE 7. Web API Deploying

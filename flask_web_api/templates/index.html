@@ -11,36 +11,34 @@
     <div class="navbar navbar-dark bg-dark shadow-sm">
       <div class="container">
         <a href="#" class="navbar-brand d-flex align-items-center">
-          <strong>의료비 본인부담금 예측값 확인하기</strong>
+          <strong>의료비 본인부담금 예측 머신러닝 모델</strong>
         </a>
       </div>
     </div>
     <section class="py-5 text-center container">
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light">의료비 본인부담금 예측 머신러닝 모델</h1>
+          <h1 class="fw-light">의료비 본인부담금 예측값 확인하기</h1>
           <br>
           <p class="lead text-muted">
-          머신러닝 모델로 1년간의 의료비 본인부담금액을 예측할 수 있습니다.
+          머신러닝 모델로 한 질병/질환의 1년간 치료비 본인부담금액을 예측할 수 있습니다.
           <br>
           아래 API 가이드라인에 따라 정보를 요청해 주세요.
           </p>
         </div>
       </div>
-        <p class="font-weight-bold">
+        <p class="lead font-weight-bold">
             Method: GET <br>
             <br>
             Endpoint: /api/user <br>
             <br>
-            입력값: 성별코드, 연령대코드, 진료지역코드, 진료과목코드 <br>
+            입력값: 1.성별코드, 2.연령대코드, 3.진료지역코드, 4.진료과목코드 <br>
             <br>
-            *아래 표에 따라 1.성별코드, 2.연령대코드, 3.진료지역코드, 4.질병/질환의 진료과목코드를
-            <br>
-            Key:Value 형식으로 입력하시면 모델 예측 본인부담금액을 확인하실 수 있습니다.
+            *아래 표에 따라 각 값을 Key:Value 형식으로 입력하시면 모델이 예측한 본인부담금액을 확인하실 수 있습니다.
         </p>
       </section>
     <section class="py-5 text-center container">
-        <p class="lead font-weight-bold">
+        <p class="font-weight-bold">
             입력 Key 1: 'GenderCode'
             <br>
             *아래 표에 따라 성별코드를 입력해 주세요.
@@ -65,8 +63,8 @@
         </table>
       </section>
       <section class="py-5 text-center container">
-        <p class="lead font-weight-bold">
-            입력 Key 1: 'AgeCode'
+        <p class="font-weight-bold">
+            입력 Key 2: 'AgeCode'
             <br>
             *아래 표에 따라 연령대코드를 입력해 주세요.
         </p>
@@ -153,7 +151,7 @@
           </table>        
       </section>
       <section class="py-5 text-center container">
-        <p class="lead font-weight-bold">
+        <p class="font-weight-bold">
             입력 Key 3: 'AreaCode'
             <br>
             *아래 표에 따라 진료지역코드를 입력해 주세요.
@@ -238,7 +236,7 @@
         </table>
       </section>
       <section class="py-5 text-center container">
-        <p class="lead font-weight-bold">
+        <p class="font-weight-bold">
             입력 Key 4: 'ClinicCode'
             <br>
             *아래 표에 따라 진료과목코드를 입력해 주세요.
